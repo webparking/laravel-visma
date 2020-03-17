@@ -1,0 +1,33 @@
+{
+  "name": "webparking/laravel-visma",
+  "description": "Laravel API helper for Visma eAccounting",
+  "license": "MIT",
+  "require": {
+    "php": "^7.3",
+    "laravel/framework": "^5.5||^6||^7",
+    "league/oauth2-client": "^2.4",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.16",
+    "phpstan/phpstan": "^0.12.18"
+  },
+  "autoload": {
+    "psr-4": {
+      "Webparking\\LaravelVisma\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Webparking\\LaravelVisma\\Providers\\LaravelVismaServiceProvider"
+      ]
+    }
+  },
+  "scripts": {
+    "php-cs-fixer": "vendor/bin/php-cs-fixer fix --config=.php_cs",
+    "test": "composer php-cs-fixer && ./vendor/bin/phpstan analyse src config --level 5"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
