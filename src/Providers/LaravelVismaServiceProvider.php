@@ -16,12 +16,12 @@ class LaravelVismaServiceProvider extends ServiceProvider
     private function registerConfig(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/visma.php',
+            __DIR__ . '/../../config/visma.php',
             'visma'
         );
 
         $this->publishes([
-            __DIR__ . '/../config/visma.php' => config_path('visma.php'),
+            __DIR__ . '/../../config/visma.php' => config_path('visma.php'),
         ], 'config');
     }
 }
