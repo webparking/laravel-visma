@@ -31,7 +31,7 @@ abstract class BaseEntity
             $request = $this->client->getProvider()->getAuthenticatedRequest(
                 'GET',
                 $this->buildUri($currentPage),
-                $this->client->getToken(),
+                $this->client->getToken()
             );
 
             $json = json_decode($this->client->getProvider()->getResponse($request)->getBody()->getContents());
@@ -52,7 +52,7 @@ abstract class BaseEntity
         $request = $this->client->getProvider()->getAuthenticatedRequest(
             'GET',
             $this->buildUri(1),
-            $this->client->getToken(),
+            $this->client->getToken()
         );
 
         return json_decode($this->client->getProvider()->getResponse($request)->getBody()->getContents());
