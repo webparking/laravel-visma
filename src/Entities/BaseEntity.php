@@ -47,6 +47,18 @@ abstract class BaseEntity
         return collect($data);
     }
 
+    protected function basePost($object): object
+    {
+        $request = $this->client->getProvider()->getAuthenticatedRequest(
+            'POST',
+            (array) $object,
+            $this->buildUri(1),
+            $this->client->getToken()
+        );
+
+        return json_decode($this->client->getProvider()->getResponse($request)->getBody()->getContents());
+    }
+
     protected function baseGet(): object
     {
         $request = $this->client->getProvider()->getAuthenticatedRequest(
