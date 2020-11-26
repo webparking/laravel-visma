@@ -47,12 +47,18 @@ abstract class BaseEntity
         return collect($data);
     }
 
-    protected function basePost($object): object
+    protected function basePost($object, $queryParams = []): object
     {
+        $arr = (array) $object;
+        foreach($arr as $key => $value) {
+            if(!isset($value)) {
+                unset($arr[$key]);
+            }
+        }
         $request = $this->client->getProvider()->getAuthenticatedRequest(
             'POST',
-            (array) $object,
-            $this->buildUri(1),
+            $arr,
+            $this->buildUri(1, $queryParams),
             $this->client->getToken()
         );
 
@@ -79,10 +85,10 @@ abstract class BaseEntity
         return (string) config('visma.sandbox.api_url');
     }
 
-    private function buildUri(int $currentPage): string
+    private function buildUri(int $currentPage, $extraParams = []): string
     {
         $url = $this->getUrlAPI() . $this->getEndpoint();
-        $url .= '?' . build_query(['$page' => $currentPage, '$pagesize' => 100], false);
+        $url .= '?' . build_query(array_merge(['$page' => $currentPage, '$pagesize' => 100, $extraParams]), false);
 
         return $url;
     }

@@ -15,6 +15,7 @@ use VoucherRow;
  * @property VoucherRow[] $Rows
  * @property string $ModifiedUtc
  * @property integer $VoucherType
+ * @property string $NumberSeries
  *
  * @package Webparking\LaravelVisma\Entities
  */
@@ -32,6 +33,10 @@ class Voucher extends BaseEntity
 
     public function save()
     {
-        return $this->basePost($this);
+        $queryParams = [];
+        if(isset($this->NumberSeries)) {
+            $queryParams['useDefaultVoucherSeries'] = false;
+        }
+        return $this->basePost($this, $queryParams);
     }
 }
