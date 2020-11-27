@@ -35,7 +35,7 @@ class Voucher extends BaseEntity
     {
         $queryParams = [];
         if(isset($this->NumberSeries)) {
-            $queryParams['useDefaultVoucherSeries'] = false;
+            $queryParams['useDefaultVoucherSeries'] = "false";
         }
         return $this->basePost($this, $queryParams);
     }
