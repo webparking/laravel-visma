@@ -55,11 +55,15 @@ abstract class BaseEntity
                 unset($arr[$key]);
             }
         }
+        $options = [];
+        $options['body'] = json_encode( $arr );
+        $options['headers']['Content-Type'] = 'application/json';
+        $options['headers']['Accept'] = 'application/json';
         $request = $this->client->getProvider()->getAuthenticatedRequest(
             'POST',
             $this->buildUri(1, $queryParams),
             $this->client->getToken(),
-            $arr
+            $options
         );
 
         return json_decode($this->client->getProvider()->getResponse($request)->getBody()->getContents());
