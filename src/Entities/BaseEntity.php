@@ -92,7 +92,7 @@ abstract class BaseEntity
     private function buildUri(int $currentPage, $extraParams = []): string
     {
         $url = $this->getUrlAPI() . $this->getEndpoint();
-        $url .= '?' . build_query(array_merge(['$page' => $currentPage, '$pagesize' => 100, $extraParams]), false);
+        $url .= '?' . build_query(array_merge(['$page' => $currentPage, '$pagesize' => 100], $extraParams), false);
 
         return $url;
     }
