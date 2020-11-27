@@ -1,6 +1,6 @@
 <?php
 
-use Webparking\LaravelVisma\Entities\BaseEntity;
+namespace Webparking\LaravelVisma\Entities;
 
 /**
  * Class VoucherRow
