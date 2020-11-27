@@ -57,9 +57,9 @@ abstract class BaseEntity
         }
         $request = $this->client->getProvider()->getAuthenticatedRequest(
             'POST',
-            $arr,
             $this->buildUri(1, $queryParams),
-            $this->client->getToken()
+            $this->client->getToken(),
+            $arr
         );
 
         return json_decode($this->client->getProvider()->getResponse($request)->getBody()->getContents());
