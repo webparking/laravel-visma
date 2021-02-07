@@ -47,6 +47,25 @@ abstract class BaseEntity
         return collect($data);
     }
 
+    protected function basePost(object $object, $queryParams = []): object
+    {
+        if ($object instanceof self) {
+            throw new \RuntimeException('Object not an instance of BaseEntity');
+        }
+
+        $request = $this->client->getProvider()->getAuthenticatedRequest(
+            'POST',
+            $this->buildUri(1, $queryParams),
+            $this->client->getToken(),
+            [
+                'body' => json_encode(array_filter((array) $object)),
+                'headers' => $this->client->getDefaultPostHeaders(),
+            ]
+        );
+
+        return json_decode($this->client->getProvider()->getResponse($request)->getBody()->getContents());
+    }
+
     protected function baseGet(): object
     {
         $request = $this->client->getProvider()->getAuthenticatedRequest(
@@ -67,10 +86,10 @@ abstract class BaseEntity
         return (string) config('visma.sandbox.api_url');
     }
 
-    private function buildUri(int $currentPage): string
+    private function buildUri(int $currentPage, array $extraParams = []): string
     {
         $url = $this->getUrlAPI() . $this->getEndpoint();
-        $url .= '?' . build_query(['$page' => $currentPage, '$pagesize' => 100], false);
+        $url .= '?' . build_query(array_merge(['$page' => $currentPage, '$pagesize' => 100], $extraParams), false);
 
         return $url;
     }
