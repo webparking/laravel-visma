@@ -21,7 +21,7 @@ abstract class BaseEntity
         $this->client = $client;
     }
 
-    protected function baseIndex(): collection
+    protected function baseIndex($queryParams = []): collection
     {
         $finished = false;
         $currentPage = 1;
@@ -30,7 +30,7 @@ abstract class BaseEntity
         while (true !== $finished) {
             $request = $this->client->getProvider()->getAuthenticatedRequest(
                 'GET',
-                $this->buildUri($currentPage),
+                $this->buildUri($currentPage, $queryParams),
                 $this->client->getToken()
             );
 
