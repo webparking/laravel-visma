@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 /**
  * Class AttachmentLink
  *
+ * @property string $DocumentId
  * @property integer $DocumentType 0 = None, 1 = SupplierInvoice, 2 = Receipt, 3 = Voucher, 4 = SupplierInvoiceDraft, 5 = AllocationPeriod, 6 = Transfer
  * @property string[] $AttachmentIds
  *
