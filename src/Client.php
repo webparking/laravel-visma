@@ -18,12 +18,15 @@ class Client
     /** @var string */
     private $token = null;
 
+    /** @var string */
+    private $redirectUrlSuffix = '';
+
     public function connect(): self
     {
         $this->provider = new GenericProvider([
             'clientId' => config('visma.client_id'),
             'clientSecret' => config('visma.client_secret'),
-            'redirectUri' => config('visma.redirect_uri'),
+            'redirectUri' => config('visma.redirect_uri').$this->getRedirectUrlSuffix(),
             'urlAuthorize' => $this->getUrlAuthorize(),
             'urlAccessToken' => $this->getUrlAccessToken(),
             'urlResourceOwnerDetails' => '',
@@ -92,5 +95,15 @@ class Client
     public function setToken(string $token): void
     {
         $this->token = $token;
+    }
+
+    public function getRedirectUrlSuffix()
+    {
+        return $this->redirectUrlSuffix;
+    }
+
+    public function setRedirectUrlSuffix($suffix)
+    {
+        return $this->redirectUrlSuffix = $suffix;
     }
 }
